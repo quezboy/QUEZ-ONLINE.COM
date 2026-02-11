@@ -363,6 +363,280 @@
             }
         });
     </script>
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUEZ Online</title>
+    <style>
+        /* ---------- Animated Background ---------- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(270deg, #00A550, #007f3d, #00A550);
+            background-size: 600% 600%;
+            animation: gradientBG 20s ease infinite;
+            scroll-behavior: smooth;
+        }
+        @keyframes gradientBG {
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+
+        header {
+            background: #006633;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .product {
+            background: white;
+            border-radius: 15px;
+            margin: 15px;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        .product img:hover {
+            transform: scale(1.05);
+        }
+        .price {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 12px;
+            background: #007f3d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #00a550;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            background: #004d26;
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            main {
+                flex-direction: column;
+                align-items: center;
+            }
+            .product {
+                width: 90%;
+            }
+        }
+
+        /* Login/Register Modal */
+        #authModal {
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.7);
+            justify-content:center;
+            align-items:center;
+        }
+        #authModal > div {
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            max-width:400px;
+            width:90%;
+        }
+        #authModal input {
+            width:100%;
+            margin-bottom:10px;
+            padding:10px;
+            border-radius:5px;
+            border:1px solid #ccc;
+        }
+        #authModal button {
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to QUEZ Online</h1>
+        <nav>
+            <a href="#products">Products</a> |
+            <a href="#contact">Contact</a>
+        </nav>
+        <button id="loginBtn">Login / Register</button>
+        <span id="welcomeMsg" style="margin-left:10px;"></span>
+        <button id="logoutBtn" style="display:none;">Logout</button>
+    </header>
+
+    <!-- LOGIN / REGISTER MODAL -->
+    <div id="authModal">
+      <div>
+        <h2 id="authTitle">Login</h2>
+        <input type="email" id="authEmail" placeholder="Email">
+        <input type="password" id="authPassword" placeholder="Password">
+        <button id="authAction">Login</button>
+        <p style="text-align:center; margin-top:10px;">
+          <span id="toggleAuth" style="color:blue; cursor:pointer;">Create an account</span>
+        </p>
+      </div>
+    </div>
+
+    <main id="products">
+        <!-- Product Cards -->
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1580894908361-2bcae491a6c8?auto=format&fit=crop&w=400&q=80" alt="Shoes">
+            <h3>Stylish Shoes</h3>
+            <p class="price">UGX 120,000</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=400&q=80" alt="Smart TV">
+            <h3>Smart TV 55 inch</h3>
+            <p class="price">UGX 1,500,000</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1591012911203-0eaa2c25c7d4?auto=format&fit=crop&w=400&q=80" alt="Washing Machine">
+            <h3>Washing Machine</h3>
+            <p class="price">UGX 950,000</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://images.unsplash.com/photo-1592848360801-9f42641a44f2?auto=format&fit=crop&w=400&q=80" alt="Luxury Car">
+            <h3>Luxury Car</h3>
+            <p class="price">UGX 85,000,000</p>
+            <button>Add to Cart</button>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <p>Contact: +256751959026</p>
+        <p>Email: Quezboyug@gmail.com</p>
+        <p>© 2026 QUEZ Online. All rights reserved.</p>
+    </footer>
+
+    <!-- FIREBASE CONFIG & AUTH -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+
+        // LOGIN MODAL LOGIC
+        const authModal = document.getElementById("authModal");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const welcomeMsg = document.getElementById("welcomeMsg");
+
+        loginBtn.addEventListener("click", () => { authModal.style.display = "flex"; });
+
+        const toggleAuth = document.getElementById("toggleAuth");
+        const authTitle = document.getElementById("authTitle");
+        const authAction = document.getElementById("authAction");
+        let isLogin = true;
+        toggleAuth.addEventListener("click", () => {
+            isLogin = !isLogin;
+            authTitle.innerText = isLogin ? "Login" : "Register";
+            authAction.innerText = isLogin ? "Login" : "Register";
+            toggleAuth.innerText = isLogin ? "Create an account" : "Already have an account?";
+        });
+
+        authAction.addEventListener("click", () => {
+            const email = document.getElementById("authEmail").value;
+            const password = document.getElementById("authPassword").value;
+            if (isLogin) {
+                signInWithEmailAndPassword(auth, email, password)
+                .then(() => { authModal.style.display = "none"; })
+                .catch(error => alert(error.message));
+            } else {
+                createUserWithEmailAndPassword(auth, email, password)
+                .then(() => { authModal.style.display = "none"; })
+                .catch(error => alert(error.message));
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if(user) {
+                welcomeMsg.innerText = `Welcome, ${user.email}`;
+                loginBtn.style.display = "none";
+                logoutBtn.style.display = "inline";
+            } else {
+                welcomeMsg.innerText = "";
+                loginBtn.style.display = "inline";
+                logoutBtn.style.display = "none";
+            }
+        });
+
+        logoutBtn.addEventListener("click", () => { signOut(auth); });
+
+        // PROTECT ADD TO CART
+        const cartButtons = document.querySelectorAll("button");
+        cartButtons.forEach(btn => {
+            if(btn.innerText === "Add to Cart") {
+                btn.addEventListener("click", () => {
+                    if(!auth.currentUser) alert("Please login first to add to cart!");
+                    else alert("Added to cart!");
+                });
+            }
+        });
+    </script>
 </body>
+</html>
 </html>
 </html>
