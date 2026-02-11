@@ -1,1 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUEZ Online Admin Dashboard</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #e6f2e6;
+    margin:0; padding:0;
+}
+header {
+    background:#007f3d;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+h1 {margin:0;}
+main {padding:20px;}
+form {
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    max-width:500px;
+    margin-bottom:30px;
+}
+input, button {
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+button {background:#007f3d; color:white; border:none; cursor:pointer;}
+button:hover {background:#00a550;}
+table {
+    width:100%;
+    border-collapse:collapse;
+}
+th, td {
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center;
+}
+th {background:#007f3d; color:white;}
+tr:hover {background:#d6f0d6;}
+</style>
+</head>
+<body>
+<header>
+    <h1>QUEZ Online Admin Dashboard</h1>
+    <button id="logoutBtn" style="display:none;">Logout</button>
+    <span id="welcomeMsg" style="margin-left:10px;"></span>
+</header>
 
+<main>
+    <!-- Add Product Form -->
+    <form id="addProductForm">
+        <h2>Add New Product</h2>
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <input type="number" id="productPrice" placeholder="Price (UGX)" required>
+        <input type="text" id="productImage" placeholder="Image URL" required>
+        <input type="text" id="productCategory" placeholder="Category (optional)">
+        <button type="submit">Add Product</button>
+    </form>
+
+    <!-- Products Table -->
+    <h2>All Products</h2>
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price (UGX)</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Products loaded here dynamically -->
+        </tbody>
+    </table>
+</main>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth();
+
+// Auth & Logout
+const logoutBtn = document.getElementById("logoutBtn");
+const welcomeMsg = document.getElementById("welcomeMsg");
+
+onAuthStateChanged(auth, (user) => {
+    if(user) {
+        welcomeMsg.innerText = `Welcome, ${user.email}`;
+        logoutBtn.style.display = "inline";
+        loadProducts(); // load table
+    } else {
+        alert("Please login first to access admin dashboard!");
+        window.location.href = "index.html"; // redirect if not logged in
+    }
+});
+
+logoutBtn.addEventListener("click", () => signOut(auth));
+
+// Add Product
+const addForm = document.getElementById("addProductForm");
+addForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("productName").value;
+    const price = Number(document.getElementById("productPrice").value);
+    const imageUrl = document.getElementById("productImage").value;
+    const category = document.getElementById("productCategory").value;
+
+    await addDoc(collection(db, "products"), {name, price, imageUrl, category});
+    addForm.reset();
+    loadProducts();
+});
+
+// Load Products Table
+async function loadProducts() {
+    const tbody = document.querySelector("#productsTable tbody");
+    tbody.innerHTML = "";
+    const snapshot = await getDocs(collection(db, "products"));
+    snapshot.forEach((docItem) => {
+        const product = docItem.data();
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${product.name}</td>
+            <td>${product.price.toLocaleString()}</td>
+            <td>${product.category || ""}</td>
+            <td><img src="${product.imageUrl}" width="50"></td>
+            <td><button data-id="${docItem.id}">Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+
+        const delBtn = tr.querySelector("button");
+        delBtn.addEventListener("click", async () => {
+            await deleteDoc(doc(db, "products", docItem.id));
+            loadProducts();
+        });
+    });
+}
+</script>
+</body>
+</html>
