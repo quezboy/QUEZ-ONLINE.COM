@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QUEZ Online - Professional Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #0f5132, #198754, #20c997, #14532d);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            color: white;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        header {
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .product {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product h3 {
+            margin: 10px 0;
+        }
+
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+
+        button {
+            background: #198754;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 80%;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>QUEZ Online</h1>
+    <p>Professional Online Shopping Store</p>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+
+<section class="products">
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Shoes">
+        <h3>Sport Shoes</h3>
+        <p class="price">UGX 120,000</p>
+        <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" alt="TV">
+        <h3>Smart TV 55 inch</h3>
+        <p class="price">UGX 1,500,000</p>
+        <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1581579188871-45ea61f2a9c8" alt="Washing Machine">
+        <h3>Washing Machine</h3>
+        <p class="price">UGX 950,000</p>
+        <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+        <img src="https://images.unsplash.com/photo-1558980664-10a6f5c9cd8f" alt="Car">
+        <h3>Luxury Car</h3>
+        <p class="price">UGX 85,000,000</p>
+        <button>Add to Cart</button>
+    </div>
+
+</section>
+
+<footer>
+    <p>Contact: +256751959026</p>
+    <p>Email: Quezboyug@gmail.com</p>
+    <p>© 2026 QUEZ Online. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
